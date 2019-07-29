@@ -15,17 +15,17 @@ def pytest_addoption(parser):
 def browser(request):
     language = request.config.getoption("--language")
     print("\nstart browser for test..")
-    chrome_options = webdriver.ChromeOptions()
+    options = webdriver.ChromeOptions()
     #опция ниже запускает браузер с нужной локалью
-    chrome_options.add_experimental_option('prefs', {'intl.accept_languages': language})
+    options.add_experimental_option('prefs', {'intl.accept_languages': language})
     #без этих опшенсов ниже не запускается браузер в debian9 в windows можно их не включать
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--start-maximized")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--start-maximized")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
     ###
-    browser = webdriver.Chrome(chrome_options=chrome_options)
+    browser = webdriver.Chrome(options=options)
     yield browser
     print("\nquit browser..")
     browser.quit()
